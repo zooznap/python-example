@@ -1,0 +1,8 @@
+version: '3.5'
+
+services:
+  mitsos:
+    command: python app.py
+    ports: 
+      - "5000:5000"
+    image: "jfotopoulos/python-example:latest"
