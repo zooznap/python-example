@@ -15,6 +15,7 @@ services:
       - DRONE_GITHUB_CLIENT=${DRONE_GITHUB_CLIENT}
       - DRONE_GITHUB_SECRET=${DRONE_GITHUB_SECRET}
       - DRONE_SECRET=a-secret-here
+      - DRONE_ADMIN=zooznap
 
   drone-agent:
     image: drone/agent:0.8
