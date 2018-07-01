@@ -3,8 +3,8 @@ from apistar import App, Route
 
 def welcome(name=None):
     if name is None:
-        return {"message": "Welcome to Athens Tech Star!"}
-    return {"message": "Welcome to Athens Tech Star, %s!" % name}
+        return {"message": "Welcome   to Athens Tech Star!"}
+    return {"message": "Welcome   to Athens Tech Star, %s!" % name}
 
 
 routes = [Route("/", method="GET", handler=welcome)]
