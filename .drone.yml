@@ -1,0 +1,39 @@
+pipeline:
+  test:
+    image: jfotopoulos/python-example:latest
+    #image: akalipetis/ci:17.07.0_1.16.1
+    environment:
+      - DOCKER_HOST=tcp://docker:2375
+    commands:
+      - docker-compose run python tests.py
+
+  build:
+    image: jfotopoulos/python-example:latest
+    environment:
+      - DOCKER_HOST=tcp://docker:2375
+    commands:
+      - docker login --username $DOCKER_USERNAME --password $DOCKER_PASSWORD
+      - docker-compose build
+      - docker-compose push
+    secrets:
+      - source: docker-username
+        target: docker_username
+      - source: docker-password
+        target: docker_password
+    when:
+      branch: master
+
+  deploy:
+    image: jfotopoulos/python-example:latest
+    commands:
+      - docker stack deploy -c docker-compose.yml python-app
+    when:
+      branch: master
+
+services:
+  docker:
+    image: docker:18.03-dind
+    command: [ "--storage-driver=aufs", "--tls=false" ]
+    privileged: true
+    volumes:
+      - /mnt/drone-dind:/var/lib/docker
